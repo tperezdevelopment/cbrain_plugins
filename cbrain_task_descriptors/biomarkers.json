@@ -1,0 +1,204 @@
+{
+  "name": "Biomarkers",
+  "tool-version": "1.0.1",
+  "author":"Eng. Tania Perez Ramirez << tperezdevelopment@gmail.com >> Cuban Center for Neurosciences",
+  "description":"This module is useful for detect biomarkers through generalized linear models with  penalties and resampling thecniques for validation. Paper reference:https://www.frontiersin.org/articles/10.3389/fnins.2017.00749/full",
+  "command-line":"Biomarkers.sh [dataFile] [labelsFile] [varIndependentFile] [dataName] [labelsName] [varIndependentName] [samefile] [indfeat] [percent_var] [percent_subj] [Nsamples] [percent_train_sample] [alphas] [mod_percent_selected] [mod_nrepet] [output]",
+  "inputs": [
+    {
+      "command-line-flag": "--samefile",
+      "description": "In this file must be saved all the matrix (data, labels and independent variable) that this plugin needs to run. If is empty the upload of file will be independent.",
+      "value-key": "[samefile]",
+      "type": "File",
+      "list": false,
+      "optional": true,
+      "disables-inputs": [
+        "dataFile",
+        "labelsFile",
+        "varIndependentFile"
+      ],
+      "id": "samefile",
+      "name": "Same file for all the matrix (data, labels and independent variable)"
+    },
+    {
+      "command-line-flag": "--dataFile",
+      "description": "This is the .mat input file of the data matrix subjects information. A matrix of number of subjects x variables.",
+      "value-key": "[dataFile]",
+      "type": "File",
+      "list": false,
+      "optional": true,
+      "disables-inputs": [
+        "samefile"
+      ],
+      "id": "dataFile",
+      "name": "Data Matrix"
+    },
+    {
+      "command-line-flag": "--labelsFile",
+      "description": "This is the .mat input file of the labels for the classification of the data example. A matrix of number of subjects x label.",
+      "value-key": "[labelsFile]",
+      "type": "File",
+      "list": false,
+      "optional": true,
+      "disables-inputs": [
+        "samefile"
+      ],
+      "id": "labelsFile",
+      "name": "Labels Matrix"
+    },
+    {
+      "command-line-flag": "--varIndependentFile",
+      "description": "This is the .mat input file of independent variable. Usually is the age.",
+      "value-key": "[varIndependentFile]",
+      "type": "File",
+      "list": false,
+      "optional": true,
+      "disables-inputs": [
+        "samefile"
+      ],
+      "id": "varIndependentFile",
+      "name": "Matrix of independent variable"
+    },
+    {
+      "command-line-flag": "--dataName",
+      "description": "Name of the Matrix in the file Data Matrix for load. Sometimes in the same file was saved more than one Matrix for that is necessary this input parameter.",
+      "default-value": "data",
+      "value-key": "[dataName]",
+      "type": "String",
+      "list": false,
+      "optional": false,
+      "id": "dataName",
+      "name": "Name of the Data Matrix"
+    },
+    {
+      "command-line-flag": "--labelsName",
+      "description": "Name of the Matrix in the file Labels Matrix for load. Sometimes in the same file was saved more than one Matrix for that is necessary this input parameter.",
+      "default-value": "labels",
+      "value-key": "[labelsName]",
+      "type": "String",
+      "list": false,
+      "optional": false,
+      "id": "labelsName",
+      "name": "Name of the Matrix in the file Labels Matrix"
+    },
+    {
+      "command-line-flag": "--varIndependentName",
+      "description": "Name of the Matrix in the file Matrix of independent variable for load. Sometimes in the same file was saved more than one Matrix for that is necessary this input parameter.",
+      "default-value": "age",
+      "value-key": "[varIndependentName]",
+      "type": "String",
+      "list": false,
+      "optional": false,
+      "id": "varIndependentName",
+      "name": "Name of the Matrix in the file Matrix of independent variable"
+    },
+    {
+      "command-line-flag": "--indfeat",
+      "description": "If this is selected will be calculate Indfeat.m routine for selecting independent features for modeling problems",
+      "default-value": false,
+      "value-key": "[indfeat]",
+      "type": "Flag",
+      "list": false,
+      "optional": true,
+      "id": "indfeat",
+      "name": "Select indfeat option"
+    },
+    {
+      "command-line-flag": "--percent_var",
+      "description": "Percent of variable for generate the samples",
+      "default-value": "70",
+      "value-key": "[percent_var]",
+      "type": "Number",
+      "list": false,
+      "optional": true,
+      "id": "percent_var",
+      "name": "Percent of variable for generate the samples"
+    },
+    {
+      "command-line-flag": "--percent_subj",
+      "description": "Percent of subjects for generate the samples",
+      "default-value": "70",
+      "value-key": "[percent_subj]",
+      "type": "Number",
+      "list": false,
+      "optional": true,
+      "id": "percent_subj",
+      "name": "Percent of subjects for generate the samples"
+    },
+    {
+      "command-line-flag": "--Nsamples",
+      "description": "Number of times for random sample",
+      "default-value": "500",
+      "value-key": "[Nsamples]",
+      "type": "Number",
+      "list": false,
+      "optional": true,
+      "id": "Nsamples",
+      "name": "Number of times for random sample"
+    },
+    {
+      "command-line-flag": "--percent_train_sample",
+      "description": "Percent of the data to train",
+      "default-value": "70",
+      "value-key": "[percent_train_sample]",
+      "type": "Number",
+      "list": false,
+      "optional": true,
+      "id": "percent_train_sample",
+      "name": "Percent of the data to train"
+    },
+    {
+      "command-line-flag": "--alphas",
+      "description": "Weight for estimate the lambda. Separed by space or eat. This list of alphas must be between 0.01 and 1. Currently alpha < 0.01 is not reliable, unless you supply your own lambda sequence. To find optimal tuning parameters, fit a total of 10 alpha values",
+      "default-value": "0.2000 0.2833 0.3667 0.4500 0.5333 0.6167 0.7000",
+      "value-key": "[alphas]",
+      "type": "String",
+      "list": false,
+      "optional": true,
+      "id": "alphas",
+      "name": "Weight for estimate the lambda. Separed by space or eat"
+    },
+    {
+      "command-line-flag": "--mod_percent_selected",
+      "description": "Percent of variable selection",
+      "default-value": "70",
+      "value-key": "[mod_percent_selected]",
+      "type": "Number",
+      "list": false,
+      "optional": true,
+      "id": "mod_percent_selected",
+      "name": "Percent of variable selection"
+    },
+    {
+      "command-line-flag": "--mod_nrepet",
+      "description": "Number of times for generate data train and test data",
+      "default-value": "100",
+      "value-key": "[mod_nrepet]",
+      "type": "Number",
+      "list": false,
+      "optional": true,
+      "id": "mod_nrepet",
+      "name": "Number of times for generate data train and test data"
+    }
+  ],
+  "container-image": {
+    "index": "docker://",
+    "image": "tperezdevelopment90/biomarkers:1.0.1",
+    "type": "singularity"
+  },
+  "schema-version": "0.5",
+  "output-files": [
+    {
+      "command-line-flag": "--output",
+      "description": "A folder containing the output file for Biomarkers module",
+      "value-key": "[output]",
+      "id": "output",
+      "path-template": "Biomarkers_Outputs",
+      "name": "Output folder"
+    }
+  ],
+  "suggested-resources": {
+    "walltime-estimate": 5000
+  },
+  "description":"this is the biomarkers module descriptor"
+}

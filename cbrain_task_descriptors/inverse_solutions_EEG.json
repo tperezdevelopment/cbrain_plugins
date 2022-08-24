@@ -1,0 +1,256 @@
+{
+  "tool-version": "1.0.3",
+  "name": "Inverse Solutions for EEG ",
+  "description":"Inverse solutions for eeg with methods and Active set modified Newton-Raphson (AMNR) Algorithm for the execute of methods. Montreal Institute and Cuban Center for Neuroscieces",
+  "command-line":"InverseSolutions.sh [Voltage] [LeadField] [Laplacian] [VoltageName] [LeadFieldName] [LaplacianName] [AnatConstSurface] [AnatConstVolume] [AnalysisDomainTime] [AnalysisDomainFrequency] [methodAll] [methodRidgel] [methodElasticNet] [methodSlasso] [methodSlassoNonNegative] [lambda] [saveAll] [output]",
+  "inputs": [
+    {
+      "command-line-flag": "--Voltage",
+      "description": "Voltage Matrix",
+      "value-key": "[Voltage]",
+      "type": "File",
+      "list": false,
+      "optional": false,
+      "id": "Voltage",
+      "name": "Matrix Voltage of EEG"
+    },
+    {
+      "command-line-flag": "--LeadField",
+      "description": "LeadField Matrix",
+      "value-key": "[LeadField]",
+      "type": "File",
+      "list": false,
+      "optional": false,
+      "id": "LeadField",
+      "name": "Matrix LeadField for the EEG"
+    },
+    {
+      "command-line-flag": "--Laplacian",
+      "description": "Laplacian Matrix",
+      "value-key": "[Laplacian]",
+      "type": "File",
+      "list": false,
+      "optional": false,
+      "id": "Laplacian",
+      "name": "Matrix Laplacian"
+    },
+    {
+      "command-line-flag": "--VoltageName",
+      "description": "name of matrix Voltage in file",
+      "default-value": "V",
+      "value-key": "[VoltageName]",
+      "type": "String",
+      "list": false,
+      "optional": false,
+      "id": "VoltageName",
+      "name": "Voltage name in file"
+    },
+    {
+      "command-line-flag": "--LeadFieldName",
+      "description": "name of matrix LeadField in file",
+      "default-value": "Ke",
+      "value-key": "[LeadFieldName]",
+      "type": "String",
+      "list": false,
+      "optional": false,
+      "id": "LeadFieldName",
+      "name": "LeadField name in file"
+    },
+    {
+      "command-line-flag": "--LaplacianName",
+      "description": "name of matrix Laplacian in file",
+      "default-value": "Le",
+      "value-key": "[LaplacianName]",
+      "type": "String",
+      "list": false,
+      "optional": false,
+      "id": "LaplacianName",
+      "name": "Laplacian name in file"
+    },
+    {
+      "command-line-flag": "--AnatConstSurface",
+      "description": "Anatomical Constraints. If it is selected, the caculation is over the Surface",
+      "default-value": true,
+      "value-key": "[AnatConstSurface]",
+      "type": "Flag",     
+      "optional": true,
+      "disables-inputs": [
+        "AnatConstVolume"
+      ],
+      "id": "AnatConstSurface",
+      "name": "Anatolmical Constraints over the Surface"
+    },
+    {
+      "command-line-flag": "--AnatConstVolume",
+      "description": "Anatomical Constraints. If it is selected, the caculation is over the Volume",
+      "default-value": false,
+      "value-key": "[AnatConstVolume]",
+      "type": "Flag",     
+      "optional": true,
+      "disables-inputs": [
+        "AnatConstSurface"
+      ],
+      "id": "AnatConstVolume",
+      "name": "Anatolmical Constraints over the Volume"
+    },
+    {
+      "command-line-flag": "--AnalysisDomainTime",
+      "description": "Domain definition for analysis the data. If it is selected, the analysis is over Time",
+      "default-value": true,
+      "value-key": "[AnalysisDomainTime]",
+      "type": "Flag",     
+      "optional": true,
+      "disables-inputs": [
+        "AnalysisDomainFrequency"
+      ],
+      "id": "AnalysisDomainTime",
+      "name": "Domain definition for analysis in the Time"
+    },
+    {
+      "command-line-flag": "--AnalysisDomainFrequency",
+      "description": "Domain definition for analysis the data. If it is selected, the analysis is over Frequency",
+      "default-value": false,
+      "value-key": "[AnalysisDomainFrequency]",
+      "type": "Flag",     
+      "optional": true,
+      "disables-inputs": [
+        "AnalysisDomainFrequency"
+      ],
+      "id": "AnalysisDomainFrequency",
+      "name": "Domain definition for analysis in the Frequency"
+    },
+    
+    {
+      "command-line-flag": "--methodAll",
+      "description": "This option is for indicate that will be calculate all the methods existing in the plugin for now",
+      "default-value": false,
+      "value-key": "[methodAll]",
+      "type": "Flag",
+      "optional": true,
+      "disables-inputs": [
+        "methodRidgel",
+        "methodElasticNet",
+        "methodSlasso",
+        "methodSlassoNonNegative"
+      ],
+      "id": "methodAll",
+      "name": "Select All the Methods to calculate"
+    },
+    {
+      "command-line-flag": "--methodRidgel",
+      "description": "This option is for indicate that will be calculate the Loreta (Low Resolution Electromagnetic Tomography) Method. Reference:Pascual-Marqui, R. D., Michel, C. M. and Lehmann, D. (1994). Low resolution electromagnetic tomography: a new method for localizing electrical activity in the brain. Int. J.Psychophysiol, 18 , 49-65.",
+      "default-value": true,
+      "value-key": "[methodRidgel]",
+      "type": "Flag",
+      "optional": true,
+      "id": "methodRidgel",
+      "name": "Loreta Method"
+    },
+    {
+      "command-line-flag": "--methodElasticNet",
+      "description": "This option is for indicate that will be calculate the Elastic Net with Laplacian Method. Reference: H. Zou, and T. Hastie, Regularization and variable selection via the elastic net. J. Roy. Statist. Soc. Ser. B 67: 301 -320 (2005).",
+      "default-value": false,
+      "value-key": "[methodElasticNet]",
+      "type": "Flag",
+      "optional": true,
+      "id": "methodElasticNet",
+      "name": "Elastic Net Method"
+    },
+    {
+      "command-line-flag": "--methodSlasso",
+      "description": "This option is for indicate that will be calculate the Smooth Lasso with Laplacian Method. Reference: M. Hebiri and S van de Geer, The Smooth-Lasso and other ℓ1 + ℓ2-penalized methods. Electronic Journal of Statistics. 5:1184-1226 (2011).",
+      "default-value": false,
+      "value-key": "[methodSlasso]",
+      "type": "Flag",
+      "optional": true,
+      "id": "methodSlasso",
+      "name": "Smooth Lasso Method"
+    },
+    {
+      "command-line-flag": "--methodSlassoNonNegative",
+      "description": "This option is for indicate that will be calculate the Non-Negative Smooth Lasso with Laplacian Method. Reference:M. Vega-Hernández, E. Martínez-Montes, J. M. Sánchez-Bornot, A. Lage-Castellanos and P.A. Valdés-Sosa, Penalized least squares methods for solving the EEG inverse problem. Stat. Sin. 18:1535–1551 (2008).",
+      "default-value": false,
+      "value-key": "[methodSlassoNonNegative]",
+      "type": "Flag",
+      "list": false,
+      "optional": true,
+      "id": "methodSlassoNonNegative",
+      "name": "Non-Negative Smooth Lasso Method"
+    },
+    {
+      "command-line-flag": "--lambda",
+      "description": "Regularization paramater. This input is optional if left at 0 the plugin will estimate it",
+      "default-value": "0",
+      "value-key": "[lambda]",
+      "type": "Number",
+      "optional": true,
+      "id": "lambda",
+      "name": "Lambda parameter"
+    },
+    {
+      "command-line-flag": "--saveAll",
+      "description": "If it is true will be save all the variables otherwise only will be save the beta solutions",
+      "default-value": false,
+      "value-key": "[saveAll]",
+      "type": "Flag",
+      "optional": true,
+      "id": "saveAll",
+      "name": "Save all the variables"
+    }
+  ],
+  "container-image": {
+    "index": "docker://",
+    "image": "tperezdevelopment/inverse_solutions_eeg:1.0.0",
+    "type": "singularity"
+  },
+  "schema-version": "0.5",
+  "groups": [
+    {
+      "description": "Select the Anatomical Constraints option, over surface or volume",
+      "one-is-required": true,
+      "members": [
+        "AnatConstSurface",
+        "AnatConstVolume"
+      ],
+      "id": "group_anatConst",
+      "name": "Anatomical Constraints option"
+    },
+    {
+      "description": "Select the Domain definition for analysis the data. option, over Time or Frequency",
+      "one-is-required": true,
+      "members": [
+        "AnalysisDomainTime",
+        "AnalysisDomainFrequency"
+      ],
+      "id": "group_analysisDomain",
+      "name": "Domain definition for analysis the data option"
+    },
+    {
+      "description": "Select the method(s) to calculate",
+      "one-is-required": true,
+      "members": [
+        "methodAll",
+        "methodRidgel",
+        "methodElasticNet",
+        "methodSlasso",
+        "methodSlassoNonNegative"
+      ],
+      "id": "group_methods",
+      "name": "Methods Options"
+    }
+    ],
+  "output-files": [
+    {
+      "command-line-flag": "--output",
+      "description": "A folder containing the outputs file for Inverse Solutions module",
+      "value-key": "[output]",
+      "id": "output",
+      "path-template": "InverseSolutionEEG_outputs",
+      "name": "Output folder"
+    }
+  ],
+  "suggested-resources": {
+    "walltime-estimate": 5000
+  },
+  "description":"Inverse solutions for eeg with methods and Active set modified Newton-Raphson (AMNR) Algorithm for the execute of methods. Montreal Institute and Cuban Center for Neuroscieces"
+}
