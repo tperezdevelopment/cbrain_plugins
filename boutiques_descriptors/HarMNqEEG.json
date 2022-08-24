@@ -1,0 +1,168 @@
+{
+  "name": "HarMNqEEG",
+  "tool-version": "1.0.0",
+  "author":"Eng. Tania Perez Ramirez << tperezdevelopment@gmail.com >> Cuban Center for Neurosciences (https://github.com/tperezdevelopment/HarMNqEEG)",
+  "description":"These results contribute to developing bias-free, low-cost neuroimaging technologies applicable in various health settings. In this first version, we calculate the harmonized qEEG for the 19 channels of the S1020 montage. We additionally apply the Global Scale Factor (GSF, Hernandez-Caceres et al., 1994) correction, which accounts for the percent of the variability in the EEG that is not due to the neurophysiological activity of the person, but rather than to impedance at the electrodes, skull thickness, hair thickness, and some other technical aspects. This GSF correction has the effect of eliminating a scale factor that affects the signal amplitude and refers all the recordings to a common baseline, which makes the recordings more comparable. Also, the EEG recordings are all re-reference to the Average Reference montage, which is a popular choice in qEEG and also eliminates the dependence of the EEG amplitude from the physical site where the reference electrode was located.",
+  "command-line":"HarMNqEEG.sh [generate_cross_spectra] [raw_data_path] [subjects_metadata] [log] [riemlogm] [batch_correction] [FFT_coefs] [Mean_Age_Cross] [outputFolder_path]",
+  "inputs": [
+    {
+      "command-line-flag": "--generate_cross_spectra",
+      "default-value": false,
+      "description": "Case False (0), the raw_data_path folder will contain the data_gatherer output. Case True (1) is required to calculate the cross spectra.",
+      "value-key": "[generate_cross_spectra]",
+      "type": "Flag",
+      "list": false,
+      "optional": true,
+      "id": "generate_cross_spectra",
+      "name": "Generate Cross Spectra"
+    },
+    {
+      "command-line-flag": "--raw_data_path",
+      "description": "The content of this raw_data_path depends of generate_cross_spectra parameters: \n  1- If the generate_cross_spectra is False (0), this folder must be contain the data_gatherer output, with the cross spectra generated. (See more: https://github.com/CCC-members/BC-V_group_stat/blob/master/data_gatherer.m) \n 2- If the generate_cross_spectra is True (1), the raw_data_path can contain the following formats: BIDS, EDF, BDF, EEGLAB SET, Neuronic PLG, and a specified ASCII format (See more: https://github.com/tperezdevelopment/HarMNqEEG#data-gatherer).",
+      "value-key": "[raw_data_path]",
+      "type": "File",
+      "list": false,
+      "optional": false,
+      "id": "raw_data_path",
+      "name": "Folder path of the raw data"
+    },
+    {
+        "description": "The name of the output",
+        "command-line-flag": "--outputFolder_path",
+        "id": "output",
+        "name": "output",
+        "optional": true,
+        "type": "String",
+        "value-key": "[outputFolder_path]",
+        "default-value": "HarMNqEEG_Outputs"
+    },
+    {
+      "command-line-flag": "--subjects_metadata",
+      "description": "In case generate_cross_spectra is True this must be a *.csv, *.tsv or *.mat file format. This file must contain a list of subjects (See more: https://github.com/tperezdevelopment/HarMNqEEG#metadata).",
+      "value-key": "[subjects_metadata]",
+      "type": "File",
+      "list": false,
+      "optional": true,
+      "id": "subjects_metadata",
+      "name": "Subjects metadata"
+    },
+    {
+      "command-line-flag": "--log",
+      "description": "Type of gaussianize method to apply. log-spectrum",
+      "default-value": true,
+      "value-key": "[log]",
+      "type": "Flag",
+      "list": false,
+      "optional": true,
+      "id": "log",
+      "name": "Log Spectrum"
+    },
+    {
+      "command-line-flag": "--riemlogm",
+      "description": "Type of gaussianize method to apply. Cross-spectrum with Riemannian Vectorization.",
+      "default-value": true,
+      "value-key": "[riemlogm]",
+      "type": "Flag",
+      "list": false,
+      "optional": true,
+      "id": "riemlogm",
+      "name": "Cross-spectrum with Riemannian Vectorization."
+    },
+    {
+      "command-line-flag": "--batch_correction",
+      "description": "List of the batch correction. You must select one of the following studies for calculating batch harmonized z-scores. The batch_correction you can put the number of the batch list or the batch correction name. The name of existed batch reference is the union between: EEG_Device+Country+Study_Year.",
+      "value-key": "[batch_correction]",
+      "type": "String",
+      "value-choices": [
+        "ANT_Neuro-Malaysia",
+        "BrainAmp_DC-Chengdu_2014",
+        "BrainAmp_MR_plus_64C-Chongqing",
+        "BrainAmp_MR_plus-Germany_2013",
+        "DEDAAS Barbados1978",
+        "DEDAAS-NewYork_1970s",
+        "EGI-256 HCGSN_Zurich(2017)-Swiss",
+        "Medicid-3M Cuba1990",
+        "Medicid-4 Cuba2003",
+        "Medicid_128Ch-CHBMP",
+        "NihonKohden-Bern(1980)_Swiss",
+        "actiCHamp_Russia_2013",
+        "Neuroscan_synamps_2-Colombia",
+        "nvx136-Russia(2013)"
+      ],
+      "optional": true,
+      "id": "batch_correction",
+      "name": "List of the batch correction."
+    },
+    {
+      "command-line-flag": "--FFT_coefs",
+      "description": "Complex matrix of FFT coefficients of nd x nfreqs x epoch length.",
+      "default-value": false,
+      "value-key": "[FFT_coefs]",
+      "type": "Flag",
+      "list": false,
+      "optional": true,
+      "id": "FFT_coefs",
+      "name": "Complex matrix of FFT coefficients of nd x nfreqs x epoch length."
+    },
+    {
+      "command-line-flag": "--Mean_Age_Cross",
+      "description": "Mean for Age of Tangent Space Cross Spectra Norm.",
+      "default-value": false,
+      "value-key": "[Mean_Age_Cross]",
+      "type": "Flag",
+      "list": false,
+      "optional": true,
+      "id": "Mean_Age_Cross",
+      "name": "Mean for Age of Tangent Space Cross Spectra Norm."
+    }
+  ],
+  "container-image": {
+    "index": "docker://",
+    "image": "tperezdevelopment90/harmnqeeg:1.0.0",
+    "type": "singularity"
+  },
+  "schema-version": "0.5",
+  "groups": [
+    {
+      "description": "Type of gaussianize method to apply. Options:",
+      "one-is-required": true,
+      "members": [
+        "log",
+        "riemlogm"
+      ],
+      "id": "typeLog",
+      "name": "typeLog"
+    },
+    {
+      "description": "List of matrix optional that the user can select. This can be empty. Options:",
+      "one-is-required": false,
+      "members": [
+        "FFT_coefs",
+        "Mean_Age_Cross"
+      ],
+      "id": "optional_matrix",
+      "name": "optional_matrix"
+    }
+  ],
+  "output-files": [
+    {
+      "description": "Path of output folder.",
+      "id": "output_folder",
+      "path-template": "[outputFolder_path]",
+      "name": "Output folder.",
+      "optional": false
+    }
+  ],
+  "suggested-resources": {
+    "walltime-estimate": 5000
+  },
+  "tags": {
+        "domain": [
+          "neuroinformatics",
+          "norms",
+          "eeg"
+        ]
+  },
+  "tool-doi": "https://www.biorxiv.org/content/10.1101/2022.01.12.476128v1",
+  "url": "https://github.com/tperezdevelopment/HarMNqEEG"
+}
