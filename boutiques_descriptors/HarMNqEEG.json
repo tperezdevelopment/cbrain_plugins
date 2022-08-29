@@ -95,7 +95,7 @@
     },
     {
       "command-line-flag": "--FFT_coefs",
-      "description": "Complex matrix of FFT coefficients of nd x nfreqs x epoch length.",
+      "description": "Complex matrix of FFT coefficients of the EEG data (stored for possible needed further processing for calculating the cross-spectral matrix, like regularization algorithms in case of ill-conditioning).",
       "default-value": false,
       "value-key": "[FFT_coefs]",
       "type": "Flag",
@@ -106,14 +106,14 @@
     },
     {
       "command-line-flag": "--Mean_Age_Cross",
-      "description": "Mean for Age of Tangent Space Cross Spectra Norm.",
+      "description": "This is obtained by evaluating the Mean of the normative regression for the Raw Cross-Spectra in Tangent Space, at the subject’s age.",
       "default-value": false,
       "value-key": "[Mean_Age_Cross]",
       "type": "Flag",
       "list": false,
       "optional": true,
       "id": "Mean_Age_Cross",
-      "name": "Mean for Age of Tangent Space Cross Spectra Norm."
+      "name": "Age evaluated Norms Mean of Cross-Spectra in Tangent Space."
     }
   ],
   "container-image": {
