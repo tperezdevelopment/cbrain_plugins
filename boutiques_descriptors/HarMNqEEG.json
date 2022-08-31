@@ -78,16 +78,16 @@
         "BrainAmp_DC-Chengdu_2014",
         "BrainAmp_MR_plus_64C-Chongqing",
         "BrainAmp_MR_plus-Germany_2013",
-        "DEDAAS Barbados1978",
+        "DEDAAS-Barbados_1978",
         "DEDAAS-NewYork_1970s",
-        "EGI-256 HCGSN_Zurich(2017)-Swiss",
-        "Medicid-3M Cuba1990",
-        "Medicid-4 Cuba2003",
+        "EGI-256_HCGSN_Zurich_2017-Swiss",
+        "Medicid-3M-Cuba_1990",
+        "Medicid-4-Cuba_2003",
         "Medicid_128Ch-CHBMP",
-        "NihonKohden-Bern(1980)_Swiss",
+        "NihonKohden-Bern_1980_Swiss",
         "actiCHamp_Russia_2013",
         "Neuroscan_synamps_2-Colombia",
-        "nvx136-Russia(2013)"
+        "nvx136-Russia_2013"
       ],
       "optional": true,
       "id": "batch_correction",
@@ -134,7 +134,7 @@
       "name": "typeLog"
     },
     {
-      "description": "List of matrix optional that the user can select. This can be empty. Options:",
+      "description": "List of matrix optional that the user can select. Options:",
       "one-is-required": false,
       "members": [
         "FFT_coefs",
