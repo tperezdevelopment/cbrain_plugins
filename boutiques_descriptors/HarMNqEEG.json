@@ -59,7 +59,7 @@
     },
     {
       "command-line-flag": "--riemlogm",
-      "description": "Type of gaussianize method to apply. Cross-spectrum with Riemannian Vectorization.",
+      "description": "Type of gaussianize method to apply. Cross-spectrum in Tangent Space.",
       "default-value": true,
       "value-key": "[riemlogm]",
       "type": "Flag",
