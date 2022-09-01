@@ -9,7 +9,7 @@ This plugins is for run CNEURO toolbox in the Cbrain platform (See more: https:/
 <ol>
 <li>HarMNqEEG <br>
 	<ol>
-        <li><a href="https://doi.org/10.5281/zenodo.7018286"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.7018286.svg" alt="DOI"></a></li>
+        <li><a href="https://doi.org/10.5281/zenodo.7041445"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.7041445.svg" alt="DOI"></a></li>
 		<li><a href="https://github.com/tperezdevelopment/HarMNqEEG" target="_blank">HarMNqEEG matlab code</a></li>
 	</ol>
 </li>
